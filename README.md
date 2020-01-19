@@ -5,7 +5,7 @@
 This image has no external dependencies. It can be built using the standard`docker build` command, as follows: 
 
 ```
-# docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:latest .
+docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:latest .
 ```
 
 ### Manually specifying versions
@@ -46,5 +46,5 @@ setup-clients
 
 Then, within that shell, run OCI CLI commands as usual:
 ```
-sh-4.2# oci iam compartment list --all
+bash-4.2# oci iam compartment list --all
 ```
