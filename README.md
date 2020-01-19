@@ -33,7 +33,7 @@ OCI_REGION=eu-frankfurt-1
 ```
 
 ### Creating and setting the required certificate and key to access OCI
-For inital setup of the OCI CLI credentials / certificate of if you need to re-configure, run the setup-clients.sh.
+For inital setup of the OCI CLI credentials / certificate of if you need to re-configure, run the setup-oci.sh.
 This will overwrite existing certificate and private key so make sure that is the intention.
 
 Running the script requires the user to hit enter when the script pauses - then the public key in PEM format is displayed.
@@ -41,10 +41,11 @@ That content must be added as public authentication key for the given user.
 
 ```
 docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env fra.ocir.io/nose/consultingregistry/oci-cli:latest /bin/bash
-setup-clients
+
+setup-oci
 ```
 
 Then, within that shell, run OCI CLI commands as usual:
 ```
-bash-4.2# oci iam compartment list --all
+oci iam compartment list --all
 ```

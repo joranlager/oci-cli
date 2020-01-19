@@ -24,7 +24,7 @@ USER root
 #rm -rf /var/cache/yum/* && \
 
 # Setup the clients
-COPY setup-clients.sh /oci/
+COPY setup-oci.sh /oci/
 
 ARG CACERT_PEM_URL=https://curl.haxx.se/ca/cacert.pem
 ENV CURL_CA_BUNDLE=/oci/cacert.pem
@@ -32,8 +32,9 @@ ENV CURL_CA_BUNDLE=/oci/cacert.pem
 # Install required Client packages
 #https://docs.cloud.oracle.com/iaas/tools/oci-cli/latest/oci_cli_docs/?TocPath=Developer Tools |Command Line Interface (CLI) |_____6
 
-RUN ln -s $(ls /oci/setup-clients.sh) /usr/bin/setup-clients && \
-yum -y install vim iputils install gettext jq oraclelinux-developer-release-el7 && \
+RUN ln -s $(ls /oci/setup-oci.sh) /usr/bin/setup-oci && \
+#yum -y install vim iputils install gettext jq oraclelinux-developer-release-el7 && \
+yum -y install vim oraclelinux-developer-release-el7 && \
 yum -y install python-oci-cli${OCI_CLI_VERSION} python-oci-sdk${OCI_SDK_VERSION} && \
 yum clean all && \
 rm -rf /var/cache/yum/* && \
