@@ -1,0 +1,45 @@
+# Containerized OCI CLI
+
+## Building the image
+
+This image has no external dependencies. It can be built using the standard`docker build` command, as follows: 
+
+```
+# docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:latest .
+```
+
+### Manually specifying versions
+
+Here is an example command that uses a specific version of OCI CLI and SDK:
+
+```
+docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:latest --build-arg OCI_CLIENT_VERSION="-2.6.13-1.el7" --build-arg OCI_SDK_VERSION="-2.6.5-1.el7" .
+```
+
+## Running the OCI CLI
+
+The current directory will be used to store your OCI CLI certificate and key, so mount it when running the OCI CLI.
+Also make sure pass the tenancy.env file to the container setting the properties within that file as ENV variables in the container.
+(Make sure to set proper values for the entries in that file.)
+```
+OCI_TENANCY_NAME=nose
+OCI_TENANCY_OCID=ocid1.tenancy.oc1..aaaaaaaaflf2uasr2shm5ag2yulp4gjy3aoqvwvvbcmvuk52fndnkps3byra
+OCI_USER_OCID=ocid1.user.oc1..aaaaaaaanufslfkvk7rnjju4f4bxb3qwor3toxpgkzev6uupomqwgjxpxhda
+OCI_REGION=eu-frankfurt-1
+```
+
+```
+docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env fra.ocir.io/nose/consultingregistry/oci-cli:latest /bin/bash
+```
+
+If you need to re-configure the OCI CLI credentials / certificate, run the setup-clients.sh.
+THIS WILL OVERWRITE EXISTING CERTIFICATE AND PRIVATE KEY SO MAKE SURE THAT IS THE INTENTION.
+```
+setup-clients
+```
+
+Now you can work with the OCI CLI the same way you are familiar with:
+
+```
+sh-4.2# oci iam compartment list --all
+```
