@@ -1,4 +1,6 @@
-#docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:latest .
+#docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 .
+#docker tag fra.ocir.io/nose/consultingregistry/oci-cli:0.1 fra.ocir.io/nose/consultingregistry/oci-cli:latest
+#docker push fra.ocir.io/nose/consultingregistry/oci-cli:0.1
 #docker push fra.ocir.io/nose/consultingregistry/oci-cli:latest
 
 #docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env fra.ocir.io/nose/consultingregistry/oci-cli:latest /bin/bash
@@ -32,8 +34,9 @@ ENV CURL_CA_BUNDLE=/oci/cacert.pem
 # Install required Client packages
 #https://docs.cloud.oracle.com/iaas/tools/oci-cli/latest/oci_cli_docs/?TocPath=Developer Tools |Command Line Interface (CLI) |_____6
 
-RUN ln -s $(ls /oci/setup-oci.sh) /usr/bin/setup-oci && \
-#yum -y install vim iputils install gettext jq oraclelinux-developer-release-el7 && \
+RUN rm -f /etc/localtime && \
+ln -s /usr/share/zoneinfo/Europe/Oslo /etc/localtime && \
+ln -s $(ls /oci/setup-oci.sh) /usr/bin/setup-oci && \
 yum -y install vim oraclelinux-developer-release-el7 && \
 yum -y install python-oci-cli${OCI_CLI_VERSION} python-oci-sdk${OCI_SDK_VERSION} && \
 yum clean all && \
