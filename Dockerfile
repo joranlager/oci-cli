@@ -1,9 +1,7 @@
-#docker build --pull -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 .
-#docker tag fra.ocir.io/nose/consultingregistry/oci-cli:0.1 fra.ocir.io/nose/consultingregistry/oci-cli:latest
-#docker push fra.ocir.io/nose/consultingregistry/oci-cli:0.1
-#docker push fra.ocir.io/nose/consultingregistry/oci-cli:latest
+#docker build --pull -f Dockerfile -t joranlager/oci-cli:latest .
+#docker push joranlager/oci-cli:latest
 
-#docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env fra.ocir.io/nose/consultingregistry/oci-cli:latest /bin/bash
+#docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env joranlager/oci-cli /bin/bash
 
 #FROM oraclelinux:7-slim
 FROM oraclelinux:7.6

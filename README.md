@@ -41,7 +41,7 @@ OCI_REGION=eu-frankfurt-1
 
 ### Running the container in interactive mode
 ```
-docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env fra.ocir.io/nose/consultingregistry/oci-cli:latest /bin/bash
+docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env joranlager/oci-cli /bin/bash
 ```
 
 #### Creating and setting the required certificate and key to access OCI
@@ -66,8 +66,7 @@ oci iam compartment list --all
 This image has no external dependencies. It can be built using the standard`docker build` command, as follows: 
 
 ```
-docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 .
-docker tag fra.ocir.io/nose/consultingregistry/oci-cli:0.1 fra.ocir.io/nose/consultingregistry/oci-cli:latest
+docker build -f Dockerfile -t joranlager/oci-cli:latest .
 ```
 
 ### Manually specifying versions
@@ -75,5 +74,5 @@ docker tag fra.ocir.io/nose/consultingregistry/oci-cli:0.1 fra.ocir.io/nose/cons
 Here is an example command that uses a specific version of OCI CLI and SDK:
 
 ```
-docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 --build-arg OCI_CLIENT_VERSION="-2.6.13-1.el7" --build-arg OCI_SDK_VERSION="-2.6.5-1.el7" .
+docker build -f Dockerfile -t joranlager/oci-cli:latest --build-arg OCI_CLIENT_VERSION="-2.6.13-1.el7" --build-arg OCI_SDK_VERSION="-2.6.5-1.el7" .
 ```
