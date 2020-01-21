@@ -1,28 +1,5 @@
 # oci-cli - containerized OCI CLI
 
-## Configuring access to Docker images from ocir
-If no access to a private Docker Registry is required, 
-please ignore the steps described here related to accessing the Docker images at fra.ocir.io.
-You then have to build the Docker image in your local Docker engine (See "Building the image" below).
-
-### Login to the tenancy and create an Auth token for your user
-In order to pull, run and push Docker images from / to the nose / consultingregistry, login is required.
-
-1. Log in to the Oracle Cloud using a browser (https://console.eu-frankfurt-1.oraclecloud.com)
-2. Navigate to Profile -> <user>, then select Resources -> Auth Tokens and Generate Token.
-3. Enter "noseconsultingregistrytoken" in description and click the Generate Token button.
-4. Then copy the generated token and store it somewhere safe.
-
-It looks like this:
-```
-eVXR({cRt;MLqYcAAA;3
-```
-
-### Login to the private Docker registry using your user and the Auth token generated
-```
-docker login -u nose/oracleidentitycloudservice/joran.lager@oracle.com -p eVXR({cRt;MLqYcAAA;3 fra.ocir.io
-```
-
 ## Running the OCI CLI
 
 The current directory will be used to store your OCI CLI certificate and key, so mount it when running the OCI CLI.
