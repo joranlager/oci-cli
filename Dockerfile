@@ -5,7 +5,8 @@
 
 #docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env fra.ocir.io/nose/consultingregistry/oci-cli:latest /bin/bash
 
-FROM oraclelinux:7-slim
+#FROM oraclelinux:7-slim
+FROM oraclelinux:7.6
 
 MAINTAINER joran.lager@oracle.com
 

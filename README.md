@@ -1,19 +1,23 @@
 # Containerized OCI CLI
 
-## Building the image
+## Configuring access to Docker images from ocir
+In order to pull, run and push Docker images from / to the nose / consultingregistry, login is required.
 
-This image has no external dependencies. It can be built using the standard`docker build` command, as follows: 
+### Login to the tenancy and create an Auth token for your user
 
+1. Log in to the Oracle Cloud using a browser (https://console.eu-frankfurt-1.oraclecloud.com)
+2. Navigate to Profile -> <user>, then select Resources -> Auth Tokens and Generate Token.
+3. Enter "noseconsultingregistrytoken" in description and click the Generate Token button.
+4. Then copy the generated token and store it somewhere safe.
+
+It looks like this:
 ```
-docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:latest .
+eVXR({cRt;MLqYcAAA;3
 ```
 
-### Manually specifying versions
-
-Here is an example command that uses a specific version of OCI CLI and SDK:
-
+### Login to the private Docker registry using your user and the Auth token generated
 ```
-docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:latest --build-arg OCI_CLIENT_VERSION="-2.6.13-1.el7" --build-arg OCI_SDK_VERSION="-2.6.5-1.el7" .
+docker login -u nose/oracleidentitycloudservice/joran.lager@oracle.com -p eVXR({cRt;MLqYcAAA;3 fra.ocir.io
 ```
 
 ## Running the OCI CLI
@@ -49,3 +53,23 @@ Then, within that shell, run OCI CLI commands as usual:
 ```
 oci iam compartment list --all
 ```
+
+## Building the image
+
+This image has no external dependencies. It can be built using the standard`docker build` command, as follows: 
+
+```
+docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 .
+docker tag fra.ocir.io/nose/consultingregistry/oci-cli:0.1 fra.ocir.io/nose/consultingregistry/oci-cli:latest
+docker push fra.ocir.io/nose/consultingregistry/oci-cli:0.1
+docker push fra.ocir.io/nose/consultingregistry/oci-cli:latest
+```
+
+### Manually specifying versions
+
+Here is an example command that uses a specific version of OCI CLI and SDK:
+
+```
+docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 --build-arg OCI_CLIENT_VERSION="-2.6.13-1.el7" --build-arg OCI_SDK_VERSION="-2.6.5-1.el7" .
+```
+
