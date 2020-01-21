@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag fra.ocir.io/nose/consultingregistry/oci-cli:0.1
+      run: docker build . --file Dockerfile --tag joranlager/oci-cli:$(date +%s)
