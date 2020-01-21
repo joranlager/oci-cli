@@ -1,9 +1,12 @@
-# Containerized OCI CLI
+# oci-cli - containerized OCI CLI
 
 ## Configuring access to Docker images from ocir
-In order to pull, run and push Docker images from / to the nose / consultingregistry, login is required.
+If no access to a private Docker Registry is required, 
+please ignore the steps described here related to accessing the Docker images at fra.ocir.io.
+You then have to build the Docker image in your local Docker engine (See "Building the image" below).
 
 ### Login to the tenancy and create an Auth token for your user
+In order to pull, run and push Docker images from / to the nose / consultingregistry, login is required.
 
 1. Log in to the Oracle Cloud using a browser (https://console.eu-frankfurt-1.oraclecloud.com)
 2. Navigate to Profile -> <user>, then select Resources -> Auth Tokens and Generate Token.
@@ -31,8 +34,8 @@ The values can be found using the Oracle Cloud Infrastructure web UI.
 
 ```
 OCI_TENANCY_NAME=nose
-OCI_TENANCY_OCID=ocid1.tenancy.oc1..aaaaaaaaflf2uasr2shm5ag2yulp4gjy3aoqvwvvbcmvuk52fndnkps3byra
-OCI_USER_OCID=ocid1.user.oc1..aaaaaaaanufslfkvk7rnjju4f4bxb3qwor3toxpgkzev6uupomqwgjxpxhda
+OCI_TENANCY_OCID=ocid1.tenancy.oc1..aaaaaaaaflfxxx
+OCI_USER_OCID=ocid1.user.oc1..aaaaaaaanufslfkvkyyy
 OCI_REGION=eu-frankfurt-1
 ```
 
@@ -48,7 +51,10 @@ This will overwrite existing certificate and private key so make sure that is th
 setup-oci
 ```
 Running the script requires the user to hit enter when the script pauses - then the public key in PEM format is displayed.
-That content must be added as public authentication key for the given user.
+That content must be added as public authentication key for the given user:
+1. Log in to the Oracle Cloud using a browser (https://console.eu-frankfurt-1.oraclecloud.com)
+2. Navigate to Profile -> <user>, then select Resources -> API Keys and Add Public Key.
+3. Paste the public key in PEM format and push Add button.
 
 Then, within that shell, run OCI CLI commands as usual:
 ```
@@ -62,8 +68,6 @@ This image has no external dependencies. It can be built using the standard`dock
 ```
 docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 .
 docker tag fra.ocir.io/nose/consultingregistry/oci-cli:0.1 fra.ocir.io/nose/consultingregistry/oci-cli:latest
-docker push fra.ocir.io/nose/consultingregistry/oci-cli:0.1
-docker push fra.ocir.io/nose/consultingregistry/oci-cli:latest
 ```
 
 ### Manually specifying versions
