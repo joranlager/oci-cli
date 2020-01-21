@@ -44,7 +44,7 @@ OCI_REGION=eu-frankfurt-1
 docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env fra.ocir.io/nose/consultingregistry/oci-cli:latest /bin/bash
 ```
 
-### Creating and setting the required certificate and key to access OCI
+#### Creating and setting the required certificate and key to access OCI
 For inital setup of the OCI CLI credentials / certificate of if you need to re-configure, run the setup-oci command in the container shell.
 This will overwrite existing certificate and private key so make sure that is the intention.
 ```
@@ -77,4 +77,3 @@ Here is an example command that uses a specific version of OCI CLI and SDK:
 ```
 docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 --build-arg OCI_CLIENT_VERSION="-2.6.13-1.el7" --build-arg OCI_SDK_VERSION="-2.6.5-1.el7" .
 ```
-
