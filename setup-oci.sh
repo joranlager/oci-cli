@@ -23,9 +23,13 @@ export fingerprint=$(grep fingerprint ${key_path}/setupstatus.txt | cut -d ' ' -
 echo $fingerprint
 
 echo -e "[DEFAULT]\nuser=${user_ocid}\nfingerprint=${fingerprint}\nkey_file=${private_key_file}\ntenancy=${tenancy_ocid}\nregion=${region}" > /root/.oci/config
+echo -e "region=${region}\ntenancy_ocid=${tenancy_ocid}\nuser_ocid=${user_ocid}\nfingerprint=${fingerprint}\nprivate_key_path=${private_key_file}\nprivate_key_password=${key_passphrase}" > /root/.oci/terraform.tfvars
 
 echo "*********** oci config ***************"
 cat /root/.oci/config
+
+echo "*********** terraform.tfvars ***************"
+cat /root/.oci/terraform.tfvars
 
 echo "Public key PEM:"
 echo https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#How2

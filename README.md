@@ -36,18 +36,19 @@ OCI_USER_OCID=ocid1.user.oc1..aaaaaaaanufslfkvk7rnjju4f4bxb3qwor3toxpgkzev6uupom
 OCI_REGION=eu-frankfurt-1
 ```
 
-### Creating and setting the required certificate and key to access OCI
-For inital setup of the OCI CLI credentials / certificate of if you need to re-configure, run the setup-oci.sh.
-This will overwrite existing certificate and private key so make sure that is the intention.
-
-Running the script requires the user to hit enter when the script pauses - then the public key in PEM format is displayed.
-That content must be added as public authentication key for the given user.
-
+### Running the container in interactive mode
 ```
 docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env fra.ocir.io/nose/consultingregistry/oci-cli:latest /bin/bash
+```
 
+### Creating and setting the required certificate and key to access OCI
+For inital setup of the OCI CLI credentials / certificate of if you need to re-configure, run the setup-oci command in the container shell.
+This will overwrite existing certificate and private key so make sure that is the intention.
+```
 setup-oci
 ```
+Running the script requires the user to hit enter when the script pauses - then the public key in PEM format is displayed.
+That content must be added as public authentication key for the given user.
 
 Then, within that shell, run OCI CLI commands as usual:
 ```

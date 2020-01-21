@@ -1,4 +1,4 @@
-#docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 .
+#docker build --pull -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:0.1 .
 #docker tag fra.ocir.io/nose/consultingregistry/oci-cli:0.1 fra.ocir.io/nose/consultingregistry/oci-cli:latest
 #docker push fra.ocir.io/nose/consultingregistry/oci-cli:0.1
 #docker push fra.ocir.io/nose/consultingregistry/oci-cli:latest
