@@ -42,7 +42,7 @@ ENV CURL_CA_BUNDLE=/oci/cacert.pem
 RUN rm -f /etc/localtime && \
 ln -s /usr/share/zoneinfo/Europe/Oslo /etc/localtime && \
 ln -s $(ls /oci/setup-oci.sh) /usr/bin/setup-oci && \
-yum -y install vim bash-completion oraclelinux-developer-release-el7 && \
+yum -y install jq vim bash-completion oraclelinux-developer-release-el7 && \
 yum -y install python-oci-cli${OCI_CLI_VERSION} python-oci-sdk${OCI_SDK_VERSION} && \
 yum clean all && \
 rm -rf /var/cache/yum/* && \
