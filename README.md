@@ -35,7 +35,7 @@ That content must be added as public authentication key for the given user:
 
 Then, within that shell, run OCI CLI commands as usual:
 ```
-oci iam compartment list --all
+oci iam compartment list --all | jq '.data[] | .name + " (" + .description + ") OCID: " + .id'
 ```
 
 ## Building the image

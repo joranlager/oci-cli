@@ -1,9 +1,15 @@
-#docker build --pull -f Dockerfile -t joranlager/oci-cli:latest .
-#docker push joranlager/oci-cli:latest
+# oci-cli DOCKERFILE
+# ------------------
+
+# This Dockerfile creates a Docker image to be used to run OCI CLI.
+#
+# HOW TO BUILD THIS IMAGE
+# -----------------------
+# docker build -f Dockerfile -t joranlager/oci-cli:latest .
+# docker push joranlager/oci-cli:latest
 
 #docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env joranlager/oci-cli /bin/bash
 
-#FROM oraclelinux:7-slim
 FROM oraclelinux:7.6
 
 MAINTAINER joran.lager@oracle.com
@@ -44,6 +50,7 @@ curl $CACERT_PEM_URL -o $CURL_CA_BUNDLE --insecure && \
 ls -latr $CURL_CA_BUNDLE
 
 ENV OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
+ENV SUPPRESS_PYTHON2_WARNING=True
 ENV OCI_TENANCY_NAME=
 ENV OCI_TENANCY_OCID=
 ENV OCI_USER_OCID=
