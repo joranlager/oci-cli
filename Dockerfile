@@ -8,14 +8,12 @@
 # docker build -f Dockerfile -t joranlager/oci-cli:latest .
 # docker push joranlager/oci-cli:latest
 
-#docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env joranlager/oci-cli /bin/bash
-
-FROM oraclelinux:7.6
+FROM oraclelinux:7.8
 
 MAINTAINER joran.lager@oracle.com
 
-ARG OCI_CLI_VERSION=-2.6.13-1.el7
-ARG OCI_SDK_VERSION=-2.6.5-1.el7
+ARG OCI_CLI_VERSION=-2.9.0-1.el7
+ARG OCI_SDK_VERSION=-2.28.0-1.0.1.el7
 
 USER root
 
