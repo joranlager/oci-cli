@@ -9,11 +9,14 @@ Also make sure pass the tenancy.env file to the container setting the properties
 Make sure to set proper values for the entries in that file.
 The values can be found using the Oracle Cloud Infrastructure web UI.
 
+### Create the file tenancy.env
 ```
+cat << EOF > ~/tfstatediagrammer/nose/tenancy.env
 OCI_TENANCY_NAME=nose
-OCI_TENANCY_OCID=ocid1.tenancy.oc1..aaaaaaaaflfxxx
-OCI_USER_OCID=ocid1.user.oc1..aaaaaaaanufslfkvkyyy
+OCI_TENANCY_OCID=ocid1.tenancy.oc1..aaaaaaaaflf2uasr2shm5ag2yulp4gjy3aoqvwvvbcmvuk52fndnkps3byra
+OCI_USER_OCID=ocid1.user.oc1..aaaaaaaanufslfkvk7rnjju4f4bxb3qwor3toxpgkzev6uupomqwgjxpxhda
 OCI_REGION=eu-frankfurt-1
+EOF
 ```
 
 ### Running the container in interactive mode

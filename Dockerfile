@@ -5,8 +5,8 @@
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
-# docker build -f Dockerfile -t joranlager/oci-cli:latest .
-# docker push joranlager/oci-cli:latest
+# docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:latest .
+# docker push fra.ocir.io/nose/consultingregistry/oci-cli:latest
 
 FROM oraclelinux:7.8
 
