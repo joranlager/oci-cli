@@ -1,61 +1,40 @@
 # oci-cli DOCKERFILE
 # ------------------
-
 # This Dockerfile creates a Docker image to be used to run OCI CLI.
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
-# docker build -f Dockerfile -t fra.ocir.io/nose/consultingregistry/oci-cli:latest .
-# docker push fra.ocir.io/nose/consultingregistry/oci-cli:latest
+# docker build -f Dockerfile -t joranlager/oci-cli:2.21.3 .
+# docker push joranlager/oci-cli:2.21.3
 
-FROM oraclelinux:7.8
+FROM oraclelinux:8-slim as builder
 
 MAINTAINER joran.lager@oracle.com
 
-ARG OCI_CLI_VERSION=-2.9.0-1.el7
-ARG OCI_SDK_VERSION=-2.28.0-1.0.1.el7
+ARG OCI_CLI_VERSION=2.21.3
 
 USER root
 
-#PYTHON 3:
-#RUN yum -y install vim iputils install gettext jq
-#RUN yum -y install oraclelinux-developer-release-el7
-#RUN yum -y install python36
-#RUN yum -y install python-oci-cli${OCI_CLI_VERSION} python-oci-sdk${OCI_SDK_VERSION}
-#RUN python3.6 -m venv py36ocienv && \
-#source py36ocienv/bin/activate && \
-#python -m pip install oci oci-cli --upgrade pip && \
-#yum clean all && \
-#rm -rf /var/cache/yum/* && \
+RUN rm -f /etc/localtime && \
+ln -s /usr/share/zoneinfo/Europe/Oslo /etc/localtime && \
+microdnf install -y unzip zip python3 python3-libs python3-pip python3-setuptools jq openssl --nodocs
+
+RUN mkdir -p /oci && \
+cd /oci && \
+curl --insecure -L https://github.com/oracle/oci-cli/releases/download/v{$OCI_CLI_VERSION}/oci-cli-{$OCI_CLI_VERSION}.zip -o /oci/oci-cli-{$OCI_CLI_VERSION}.zip && \
+unzip /oci/oci-cli-{$OCI_CLI_VERSION}.zip && \
+cd /oci/oci-cli && pip3 install oci_cli-*-py2.py3-none-any.whl && \
+rm -rf /oci && \
+oci --version
 
 # Setup the clients
 COPY setup-oci.sh /oci/
 
-ARG CACERT_PEM_URL=https://curl.haxx.se/ca/cacert.pem
-ENV CURL_CA_BUNDLE=/oci/cacert.pem
-
-# Install required Client packages
-#https://docs.cloud.oracle.com/iaas/tools/oci-cli/latest/oci_cli_docs/?TocPath=Developer Tools |Command Line Interface (CLI) |_____6
-
 RUN rm -f /etc/localtime && \
 ln -s /usr/share/zoneinfo/Europe/Oslo /etc/localtime && \
 ln -s $(ls /oci/setup-oci.sh) /usr/bin/setup-oci && \
-chmod 700 /oci/setup-oci.sh && \
-yum -y install jq vim bash-completion oraclelinux-developer-release-el7 && \
-yum -y install python-oci-cli${OCI_CLI_VERSION} python-oci-sdk${OCI_SDK_VERSION} && \
-yum clean all && \
-rm -rf /var/cache/yum/* && \
-curl $CACERT_PEM_URL -o $CURL_CA_BUNDLE --insecure && \
-ls -latr $CURL_CA_BUNDLE
+chmod 700 /oci/setup-oci.sh
 
-ENV OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
-ENV SUPPRESS_PYTHON2_WARNING=True
-ENV OCI_TENANCY_NAME=
-ENV OCI_TENANCY_OCID=
-ENV OCI_USER_OCID=
-ENV OCI_REGION=
-
-VOLUME ["/oci"]
 WORKDIR /oci
 
 CMD ["/bin/bash"]
