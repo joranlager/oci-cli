@@ -4,14 +4,14 @@
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
-# docker build -f Dockerfile -t joranlager/oci-cli:2.21.3 .
-# docker push joranlager/oci-cli:2.21.3
+# docker build -f Dockerfile -t joranlager/oci-cli:2.24.1 .
+# docker push joranlager/oci-cli:2.24.1
 
 FROM oraclelinux:8-slim as builder
 
 MAINTAINER joran.lager@oracle.com
 
-ARG OCI_CLI_VERSION=2.21.3
+ARG OCI_CLI_VERSION=2.24.1
 
 USER root
 
