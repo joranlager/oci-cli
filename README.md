@@ -61,5 +61,5 @@ docker build -f Dockerfile -t joranlager/oci-cli:latest .
 Here is an example command that uses a specific version of OCI CLI:
 
 ```
-docker build -f Dockerfile -t joranlager/oci-cli:2.21.3 --build-arg OCI_CLIENT_VERSION="2.21.3" .
+docker build -f Dockerfile -t joranlager/oci-cli:2.25.2 --build-arg OCI_CLIENT_VERSION="2.25.2" .
 ```
