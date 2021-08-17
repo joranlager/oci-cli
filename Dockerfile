@@ -4,16 +4,16 @@
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
-# docker build -f Dockerfile -t joranlager/oci-cli:2.25.2 .
-# docker tag joranlager/oci-cli:2.25.2 joranlager/oci-cli:latest
-# docker push joranlager/oci-cli:2.25.2
+# docker build -f Dockerfile -t joranlager/oci-cli:3.0.1 .
+# docker tag joranlager/oci-cli:3.0.1 joranlager/oci-cli:latest
+# docker push joranlager/oci-cli:3.0.1
 # docker push joranlager/oci-cli:latest
 
 FROM oraclelinux:8-slim as builder
 
 MAINTAINER joran.lager@oracle.com
 
-ARG OCI_CLI_VERSION=2.25.2
+ARG OCI_CLI_VERSION=3.0.1
 
 USER root
 
@@ -25,7 +25,10 @@ RUN mkdir -p /oci && \
 cd /oci && \
 curl --insecure -L https://github.com/oracle/oci-cli/releases/download/v{$OCI_CLI_VERSION}/oci-cli-{$OCI_CLI_VERSION}.zip -o /oci/oci-cli-{$OCI_CLI_VERSION}.zip && \
 unzip /oci/oci-cli-{$OCI_CLI_VERSION}.zip && \
-cd /oci/oci-cli && pip3 install oci_cli-*-py2.py3-none-any.whl && \
+export CRYPTOGRAPHY_DONT_BUILD_RUST=1 && \
+pip3 install --upgrade pip && \
+pip3 install cryptography && \
+cd /oci/oci-cli && pip3 install oci_cli-*-py3-none-any.whl && \
 rm -rf /oci && \
 oci --version
 
@@ -36,6 +39,8 @@ RUN rm -f /etc/localtime && \
 ln -s /usr/share/zoneinfo/Europe/Oslo /etc/localtime && \
 ln -s $(ls /oci/setup-oci.sh) /usr/bin/setup-oci && \
 chmod 700 /oci/setup-oci.sh
+
+ENV OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
 
 WORKDIR /oci
 
