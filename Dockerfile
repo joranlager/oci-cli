@@ -4,7 +4,7 @@
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
-# docker build -f Dockerfile -t joranlager/oci-cli:3.0.1 .
+# docker build -f Dockerfile -t joranlager/oci-cli:3.6.0 .
 # docker tag joranlager/oci-cli:3.0.1 joranlager/oci-cli:latest
 # docker push joranlager/oci-cli:3.0.1
 # docker push joranlager/oci-cli:latest
@@ -13,13 +13,13 @@ FROM oraclelinux:8-slim as builder
 
 MAINTAINER joran.lager@oracle.com
 
-ARG OCI_CLI_VERSION=3.0.1
-
 USER root
 
 RUN rm -f /etc/localtime && \
 ln -s /usr/share/zoneinfo/Europe/Oslo /etc/localtime && \
 microdnf install -y unzip zip python3 python3-libs python3-pip python3-setuptools jq openssl --nodocs
+
+ARG OCI_CLI_VERSION=3.6.0
 
 RUN mkdir -p /oci && \
 cd /oci && \

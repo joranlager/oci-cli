@@ -12,8 +12,8 @@ The values can be found using the Oracle Cloud Infrastructure web UI.
 ### Create the file tenancy.env
 bash
 ```
-cat << EOF > mytenancy.env
-OCI_TENANCY_NAME=mytenancy
+cat << EOF > tenancy.env
+OCI_TENANCY_NAME=tenancy
 OCI_TENANCY_OCID=ocid1.tenancy.oc1..aaaaaaaaflf2uasrxxxqvwvvbcmvuk52fndxxxs3byra
 OCI_USER_OCID=ocid1.user.oc1..aaaaaaaanufslfkvk7rnjjxxxv6uupomxxxxhda
 OCI_REGION=eu-frankfurt-1
@@ -23,12 +23,12 @@ EOF
 ### Running the container in interactive mode
 bash
 ```
-docker run -it --rm --mount type=bind,source="$(pwd)",target=/root/.oci --env-file mytenancy.env joranlager/oci-cli /bin/bash
+docker run -it --rm --mount type=bind,source="$(pwd)",target=/root/.oci --env-file tenancy.env joranlager/oci-cli /bin/bash
 ```
 
 Windows Command Line
 ```
-docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file mytenancy.env joranlager/oci-cli /bin/bash
+docker run -it --rm --mount type=bind,source="%cd%",target=/root/.oci --env-file tenancy.env joranlager/oci-cli /bin/bash
 ```
 
 #### Creating and setting the required certificate and key to access OCI
@@ -61,5 +61,5 @@ docker build -f Dockerfile -t joranlager/oci-cli:latest .
 Here is an example command that uses a specific version of OCI CLI:
 
 ```
-docker build -f Dockerfile -t joranlager/oci-cli:2.25.2 --build-arg OCI_CLIENT_VERSION="2.25.2" .
+docker build -f Dockerfile -t joranlager/oci-cli:3.6.0 --build-arg OCI_CLIENT_VERSION="3.6.0" .
 ```
